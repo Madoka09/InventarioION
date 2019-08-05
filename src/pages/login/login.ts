@@ -27,10 +27,6 @@ export class LoginPage {
 
     }
 
-    to_Production() {
-        this.ionViewDidLoad();
-    }
-
     to_Admin() {
         this.navCtrl.setRoot(AdminPage);
     }

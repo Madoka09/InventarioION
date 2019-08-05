@@ -277,7 +277,7 @@ export class MultipleDeparturePage {
     console.log(this.elementValues);
   }
 
-  printPDF() {
+  printStock() {
     if (this.plt.is('cordova')) {
       this.pdfObj.getBuffer((buffer) => {
         var blob = new Blob([buffer], { type: 'application/pdf' });

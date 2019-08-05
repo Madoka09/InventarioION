@@ -62,14 +62,13 @@ export class HomePage {
                             cantidad: nuevo,
                             descripcion: this.elements[i].descripcion,
                             codigo: this.elements[i].codigo,
-                            fifo: this.elements[i].codigof,
                             creado: this.elements[i].created_at,
                             id: this.elements[i].id,
                             nivel: this.elements[i].nivel,
                             pasillo: this.elements[i].pasillo,
                             rack: this.elements[i].rack,
                             proveedor: this.elements[i].provedor,
-                            nombre: this.elements[i].nombre,
+                            nombre: this.elements[i].nombre
                         })
 
                     } else {
@@ -93,13 +92,13 @@ export class HomePage {
     ionViewDidLoad() {
         //Obtener informacion al cargar la vista
         //this.getData()
-        //this.doJsonMath();
+        //this.generateNewJson();
     } 
 
     ionViewWillEnter() {
         //Obtener informacion al regresar a la vista
         //this.getData();
-        //this.doJsonMath();
+        //this.generateNewJson();
     }
 
     //Obtener la informacion de los productos desde la base de datos
@@ -123,7 +122,7 @@ export class HomePage {
     }
 
     //Crear nuevo Json en base a las consultas de la base de datos.
-    doJsonMath() {
+    generateNewJson() {
         this.getData();
         this.getDataDeparture();
         console.log(this.elements.length);
@@ -139,7 +138,6 @@ export class HomePage {
                     cantidad: nuevo,
                     descripcion: this.elements[i].descripcion,
                     codigo: this.elements[i].codigo,
-                    fifo: this.elements[i].codigof,
                     creado: this.elements[i].created_at,
                     id: this.elements[i].id,
                     nivel: this.elements[i].nivel,
@@ -170,6 +168,7 @@ export class HomePage {
             }
             return listItem;
         });
+        console.log(element.nombre)
     }
 
     //Ir a vista de editar elemento
@@ -271,7 +270,7 @@ export class HomePage {
             } else if (val == '' || val == undefined) {
                 console.log("pulsaste cancel");
                 this.newData.length = 0;
-                this.doJsonMath();
+                this.generateNewJson();
             }
         }
 

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController, Platform } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
 import { HttpClient } from '@angular/common/http';
+import { Chart } from 'chart.js';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -15,7 +16,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: 'reports.html',
 })
 export class ReportsPage {
-  pdfObj = null;
+  pdfObjS = null;
+  pdfObjD = null;
   //Elementos a iterar
   elements: any;
   //Arrays para construccion de headers en tabla
@@ -29,16 +31,62 @@ export class ReportsPage {
   jsonExplo: any;
   //Valores de la tabla
   columns: any = [];
-  values: any = [];
+  valuesStock: any = [];
+  valuesDepart: any = [];
 
   departureData: any = [];
   newData: any = [];
 
+  //Grafica
+  barChart: any;
+  chartVal: any = [];
+
+  @ViewChild('barCanvas') barCanvas;
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient,
     public alertCtrl: AlertController,
     public loading: LoadingController, public toast: ToastController,
     private plt: Platform, private file: File, private fileOpener: FileOpener) {
   }
+
+  ngOnInit(){
+    this.barChartMethod();
+  }
+
+  barChartMethod(){
+    this.getDataDeparture();
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: ['BJP', 'INC', 'AAP', 'CPI', 'CPI-M', 'NCP'],
+        datasets: [{
+          label: '# of Votes',
+          data: this.chartVal,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+    console.log(this.chartVal);
+  }
+
   ionViewDidLoad() {
     //Obtener informacion al cargar la vista
     this.getData();
@@ -61,14 +109,14 @@ export class ReportsPage {
 
   getDataDeparture() {
     this.http.get("http://192.168.137.1/IonicApp/json_read_departures.php").subscribe(data2 => {
-      this.departureData = data2;
-      console.log(data2);
+      this.departureData = data2;      
+      console.log("Chart Val: " + this.chartVal)
     }, err => {
       console.log(err);
     })
   }
 
-  doJsonMath() {
+  generateNewJson() {
     for (let i = 0; i <= this.elements.length - 1; i++) {
       if (this.elements[i].codigo == this.departureData[i].codigo) {
         var entradas = parseInt(this.elements[i].cantidad);
@@ -80,14 +128,14 @@ export class ReportsPage {
           cantidad: nuevo,
           descripcion: this.elements[i].descripcion,
           codigo: this.elements[i].codigo,
-          fifo: this.elements[i].codigof,
           creado: this.elements[i].created_at,
           id: this.elements[i].id,
           nivel: this.elements[i].nivel,
           pasillo: this.elements[i].pasillo,
           rack: this.elements[i].rack,
           proveedor: this.elements[i].provedor,
-          nombre: this.elements[i].nombre,
+          nombre: this.elements[i].nombre
+
         })
 
       } else {
@@ -106,9 +154,9 @@ export class ReportsPage {
   }
 
   //creador de contenido dinamico para el PDF
-  insertCols() {
+  insertColsStock() {
     //Insertar encabezado de la tabla
-    this.values.push(
+    this.valuesStock.push(
       [
         { text: 'Articulo' },
         { text: 'Cantidad' },
@@ -120,7 +168,7 @@ export class ReportsPage {
     );
     //Insertar contenidos de la tabla
     for (let k = 0; k <= this.elements.length - 1; k++) {
-      this.values.push(
+      this.valuesStock.push(
         [
           { text: this.nombre[k] },
           { text: this.cantidad[k] },
@@ -131,43 +179,93 @@ export class ReportsPage {
         ]
       );
     }
-    console.log(this.values);
+    console.log(this.valuesStock);
   }
 
-  generatePDF() {
+  insertColsDepart() {
+    this.valuesDepart.push(
+      [
+        {text: 'Articulo'},
+        {text: 'Cantidad'},
+        {text: 'Codigo'},
+      ]
+    );
+
+    for (let l = 0; l <= this.elements.length - 1; l++) {
+      this.valuesDepart.push(
+        [
+          { text: this.departureData[l].nombre },
+          { text: this.departureData[l].Total },
+          { text: this.departureData[l].codigo },
+        ]
+      );
+    }
+  }
+
+  generatePDFStock() {
     if (this.plt.is('cordova')) {
-      this.pdfObj.getBuffer((buffer) => {
+      this.pdfObjS.getBuffer((buffer) => {
         var blob = new Blob([buffer], { type: 'application/pdf' })
 
         //Guardar el PDF al directorio "data" de la app
-        this.file.writeFile(this.file.dataDirectory, 'report.pdf', blob, { replace: true }).then(fileEntry => {
+        this.file.writeFile(this.file.dataDirectory, 'reportStock.pdf', blob, { replace: true }).then(fileEntry => {
           //Abrir el PDF con android
-          this.fileOpener.open(this.file.dataDirectory + "report.pdf", 'application/pdf');
+          this.fileOpener.open(this.file.dataDirectory + "reportStock.pdf", 'application/pdf');
         });
       });
     } else {
       //si es en navegador, descargar
-      this.pdfObj.download();
+      this.pdfObjS.download();
+    }
+  }
+
+  generatePDFDeparture() {
+    if (this.plt.is('cordova')) {
+      this.pdfObjD.getBuffer((buffer) => {
+        var blob = new Blob([buffer], { type: 'application/pdf' })
+
+        //Guardar el PDF al directorio "data" de la app
+        this.file.writeFile(this.file.dataDirectory, 'reportStock.pdf', blob, { replace: true }).then(fileEntry => {
+          //Abrir el PDF con android
+          this.fileOpener.open(this.file.dataDirectory + "reportStock.pdf", 'application/pdf');
+        });
+      });
+    } else {
+      //si es en navegador, descargar
+      this.pdfObjD.download();
     }
   }
 
   //Invocar Loader antes de imprimir
-  callToLoaderPrint() {
-    this.doJsonMath();
+  callStock() {
+    this.generateNewJson();
     let loader = this.loading.create({
       content: "Generando Reporte...",
     });
     loader.present().then(() => {
-      this.printPDF();
+      this.printStock();
+    });
+    loader.dismiss();
+    this.showToast("Reporte Creado con Exito");
+  }
+
+   //Invocar Loader antes de imprimir
+   callDeparture() {
+    this.getDataDeparture();
+    let loader = this.loading.create({
+      content: "Generando Reporte...",
+    });
+    loader.present().then(() => {
+      this.printDeparture();
     });
     loader.dismiss();
     this.showToast("Reporte Creado con Exito");
   }
 
 
-  printPDF() {
+  printStock() {
     //Construir array para crear la tabla, contiene el body completo
-    this.insertCols();
+    this.insertColsStock();
 
     //Crear PDF para impresion
     var docDefiniton = {
@@ -181,7 +279,7 @@ export class ReportsPage {
               width: 'auto',
               table: {
                 headerRows: 1,
-                body: this.values
+                body: this.valuesStock
               }
             },
             { width: '*', text: '' }
@@ -189,7 +287,33 @@ export class ReportsPage {
         }
       ]
     }
-    this.pdfObj = pdfMake.createPdf(docDefiniton);
+    this.pdfObjS = pdfMake.createPdf(docDefiniton);
+  }
+
+  printDeparture() {
+    this.insertColsDepart();
+
+    //Crear PDF para impresion
+    var docDefinition = {
+      content: [
+        { text: 'REPORTE DE SALIDAS', style: 'header', alignment: 'center'},
+        { text: 'Fecha: ' + new Date().toLocaleDateString('ddMMyyyy'), alignment: 'right', style: 'date' },
+        {
+          columns: [
+            { width: '*', text: ''},
+            {
+              width: 'auto',
+              table: {
+                headerRows: 1,
+                body: this.valuesDepart
+              }
+            },
+            { width: '*', text: ''}
+          ]
+        }
+      ]
+    }
+    this.pdfObjD = pdfMake.createPdf(docDefinition);
   }
 
   showToast(message) {

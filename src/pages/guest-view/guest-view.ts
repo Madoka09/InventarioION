@@ -72,6 +72,8 @@ export class GuestViewPage {
 
   }
 
+  
+
   refresh(refresher) {
     console.log("Empieza Refresh", refresher);
     this.getData();
