@@ -34,7 +34,7 @@ if(isset($data)){
     $fecha = $request->fecha;
 }
 
-$entryStockQuery = ("INSERT INTO entradas (provedor, cantidad, producto_id, user_id, created_at, updated_at) VALUES ('$proveedor', '$newCantidad', '$id', '1', '$fecha', '$fecha')");
+$entryStockQuery = ("INSERT INTO entradas (provedor, cantidad, producto_id, created_at) VALUES ('$proveedor', '$newCantidad', '$id', '$fecha')");
 
 
 

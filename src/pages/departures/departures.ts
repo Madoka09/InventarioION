@@ -133,7 +133,7 @@ export class DeparturesPage {
       });
 
       loader.present().then(() => {
-        this.http.post('http://192.168.137.1/IonicApp/departure_stock.php', data, options)
+        this.http.post('http://192.168.1.86/IonicApp/departure_stock.php', data, options)
           .map(res => res.json())
           .subscribe(res => {
 

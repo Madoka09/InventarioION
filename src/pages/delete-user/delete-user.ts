@@ -23,7 +23,7 @@ export class DeleteUserPage {
             sea posible, por lo que en este metodo, se insertan tantos de esos elementos, como usuarios
             existan.
         */
-        this.httpC.get("http://192.168.137.1/IonicApp/json_read.php").subscribe(data => {
+        this.httpC.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
             this.elements = data;
             this.element = [
 
@@ -53,7 +53,7 @@ export class DeleteUserPage {
 
     //metodo para obtener usuarios y almacenarlos en el arreglo "elements"
     getData() {
-        this.httpC.get("http://192.168.137.1/IonicApp/json_fetch_user.php").subscribe(data => {
+        this.httpC.get("http://192.168.1.86/IonicApp/json_fetch_user.php").subscribe(data => {
             this.elements = data;
             console.log(data);
         }, err => {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-08-2019 a las 13:40:02
+-- Tiempo de generación: 06-08-2019 a las 01:32:03
 -- Versión del servidor: 5.7.17-log
 -- Versión de PHP: 7.3.7
 
@@ -25,45 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
---
-
-CREATE TABLE `categorias` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `categorias`
---
-
-INSERT INTO `categorias` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
-(1, 'Telas', '2018-11-15 05:27:47', '2019-01-10 04:07:53'),
-(2, 'Cierres', '2018-11-15 05:27:52', '2018-11-22 14:59:48'),
-(3, 'Plastico', '2019-01-06 20:57:37', '2019-01-06 20:58:05'),
-(4, 'Cartas', '2019-01-06 20:57:43', '2019-01-06 20:57:43'),
-(9, 'Tornillos', '2019-01-10 04:38:55', '2019-01-10 04:38:55'),
-(11, 'Tuercas', '2019-01-10 04:40:43', '2019-01-10 04:40:43');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `empleados`
---
-
-CREATE TABLE `empleados` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `puesto` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `entradas`
 --
 
@@ -73,27 +34,18 @@ CREATE TABLE `entradas` (
   `cantidad` int(11) NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `producto_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `entradas`
 --
 
-INSERT INTO `entradas` (`id`, `provedor`, `cantidad`, `descripcion`, `producto_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 'Bepis', 1000, 'jojo', 2, 1, '2019-01-06 21:08:29', '2019-01-06 21:08:29'),
-(3, 'Sony', 100, 'lo ui', 3, 1, '2019-01-06 21:08:55', '2019-01-10 07:18:15'),
-(4, 'Bepis', 100, 'Ajuj', 2, 1, '2019-01-10 05:18:55', '2019-01-10 05:18:55'),
-(6, 'Bepis', 100, 'kjb', 2, 1, '2019-01-10 05:21:37', '2019-01-10 05:21:37'),
-(8, 'Nintendo', 100, 'oibio', 2, 1, '2019-01-10 05:30:11', '2019-01-10 05:30:11'),
-(9, 'Nintendo', 100, 'loki', 2, 1, '2019-01-10 05:44:00', '2019-01-10 05:44:00'),
-(10, 'Nintendo', 100, 'oibiu', 2, 1, '2019-01-10 06:35:51', '2019-01-10 06:35:51'),
-(12, 'Conke', 100, 'onb', 3, 1, '2019-01-10 07:11:52', '2019-01-10 07:11:52'),
-(15, 'Nintendo', 97, '877v', 3, 1, '2019-01-10 08:17:25', '2019-01-10 08:17:25'),
-(17, 'Konami', 10, '', 6, 1, '2019-08-01 18:45:43', '2019-08-01 18:45:43'),
-(18, 'Sony', 20, '', 7, 1, '2019-08-02 13:30:22', '2019-08-02 13:30:22');
+INSERT INTO `entradas` (`id`, `provedor`, `cantidad`, `descripcion`, `producto_id`, `created_at`) VALUES
+(20, 'Sony', 100, '', 9, '2019-08-06 00:28:17'),
+(21, 'Sony', 60, '', 10, '2019-08-06 00:28:38'),
+(22, 'Sony', 60, '', 12, '2019-08-06 00:49:15'),
+(23, 'Konami', 90, '', 11, '2019-08-06 00:49:29');
 
 -- --------------------------------------------------------
 
@@ -150,28 +102,22 @@ CREATE TABLE `productos` (
   `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `codigo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cantidad` int(11) NOT NULL DEFAULT '0',
-  `agotamiento` int(11) NOT NULL,
-  `unidad` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pasillo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rack` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nivel` int(11) NOT NULL,
   `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `categoria_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `nombre`, `codigo`, `cantidad`, `agotamiento`, `unidad`, `pasillo`, `rack`, `nivel`, `descripcion`, `categoria_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 'Cierre gris', 'ax6/7r8', 0, 600, 'PCS', 'B', 'C', 3, 'cierre color gris', 2, 1, '2019-01-06 21:04:25', '2019-01-10 19:50:02'),
-(3, 'Cierre rojo', 'ax6/7r8', 0, 200, 'ML', 'A', 'A', 1, 'Cierre negro', 2, 1, '2019-01-06 21:06:20', '2019-01-06 21:06:20'),
-(6, 'Test', 'Test', 0, 0, '', 'Test', 'Test', 0, 'Test', 3, 1, NULL, NULL),
-(7, 'Pipi', '001', 0, 0, '', '2', 'A', 2, 'Kdkdkf', 3, 1, NULL, NULL),
-(8, 'Pipi', '001', 0, 0, '', '2', 'A', 2, 'Kdkdkf', 3, 1, NULL, NULL);
+INSERT INTO `productos` (`id`, `nombre`, `codigo`, `cantidad`, `pasillo`, `rack`, `nivel`, `descripcion`, `created_at`) VALUES
+(9, 'Jugo', '001', 0, '1', '1', 1, 'Juguito', NULL),
+(10, 'Tostadas', '002', 0, '2', '2', 2, 'Tostadas', NULL),
+(11, 'Ggg', 'Ccc', 0, 'Ff', 'Gg', 0, 'Fff', NULL),
+(12, 'Gggjj', 'Grtty', 0, 'Gggh', 'Ghjj', 0, 'Cvj', NULL);
 
 -- --------------------------------------------------------
 
@@ -192,9 +138,7 @@ CREATE TABLE `provedores` (
 
 INSERT INTO `provedores` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Sony', '2019-01-06 20:54:46', '2019-01-06 20:54:46'),
-(2, 'Konami', '2019-01-06 20:54:51', '2019-01-10 20:14:06'),
-(3, 'Conke', '2019-01-06 20:54:57', '2019-01-06 20:54:57'),
-(4, 'Bepis', '2019-01-06 20:55:01', '2019-01-06 20:55:01');
+(2, 'Konami', '2019-01-06 20:54:51', '2019-01-10 20:14:06');
 
 -- --------------------------------------------------------
 
@@ -229,36 +173,20 @@ CREATE TABLE `salidas` (
   `id` int(10) UNSIGNED NOT NULL,
   `cantidad` int(11) NOT NULL,
   `producto_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
   `entrada_id` int(10) UNSIGNED DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `salidas`
 --
 
-INSERT INTO `salidas` (`id`, `cantidad`, `producto_id`, `user_id`, `entrada_id`, `created_at`, `updated_at`) VALUES
-(1, 100, 2, 1, 2, '2019-01-08 07:13:49', '2019-01-08 07:13:49'),
-(4, 100, 2, 1, 2, '2019-01-08 08:49:39', '2019-01-08 08:49:39'),
-(5, 100, 2, 1, 2, '2019-01-08 08:51:33', '2019-01-08 08:51:33'),
-(6, 100, 2, 1, 2, '2019-01-08 08:51:57', '2019-01-08 08:51:57'),
-(7, 100, 2, 1, 2, '2019-01-08 08:53:19', '2019-01-08 08:53:19'),
-(8, 99, 2, 1, 2, '2019-01-08 08:53:42', '2019-01-13 23:55:12'),
-(16, 50, 2, 1, 4, '2019-01-13 23:42:55', '2019-01-13 23:42:55'),
-(17, 10, 2, 1, 4, '2019-01-13 23:43:33', '2019-01-13 23:43:33'),
-(18, 5, 2, 1, 4, '2019-01-13 23:45:27', '2019-01-13 23:45:27'),
-(19, 5, 2, 1, 4, '2019-01-13 23:50:13', '2019-01-13 23:50:13'),
-(20, 2, 2, 1, 4, '2019-01-13 23:51:29', '2019-01-13 23:51:29'),
-(21, 3, 2, 1, 4, '2019-01-13 23:52:51', '2019-01-13 23:52:51'),
-(22, 10, 2, 1, NULL, '2019-08-01 02:27:14', '2019-08-01 02:27:14'),
-(23, 10, 2, 1, NULL, '2019-08-01 19:08:53', '2019-08-01 19:08:53'),
-(25, 4, 3, 1, NULL, '2019-08-01 19:08:53', '2019-08-01 19:08:53'),
-(26, 1, 2, 1, NULL, '2019-08-02 13:30:48', '2019-08-02 13:30:48'),
-(27, 5, 2, 1, NULL, '2019-08-02 13:31:19', '2019-08-02 13:31:19'),
-(28, 3, 3, 1, NULL, '2019-08-02 13:31:19', '2019-08-02 13:31:19'),
-(29, 5, 7, 1, NULL, '2019-08-02 13:31:19', '2019-08-02 13:31:19');
+INSERT INTO `salidas` (`id`, `cantidad`, `producto_id`, `entrada_id`, `created_at`) VALUES
+(30, 20, 9, NULL, '2019-08-06 00:29:02'),
+(31, 10, 10, NULL, '2019-08-06 00:29:37'),
+(32, 30, 10, NULL, '2019-08-06 00:46:35'),
+(33, 25, 12, NULL, '2019-08-06 00:50:00'),
+(34, 30, 11, NULL, '2019-08-06 00:50:12');
 
 -- --------------------------------------------------------
 
@@ -270,24 +198,21 @@ CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `role` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `surname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `role`, `name`, `surname`, `email`, `password`, `image`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Felipe Ornelas', '\r\n', 'felipe.ornelas9@live.com.mx', '$2y$10$P81g2S1QztD70uCJ5.A8N.px1nkbB18jzbneKpdG7YgNMRAb.a.p.', '154680708343914247_1942824719358766_6106605715213180458_n.jpg', 'd2AfLcXYB6lPVu2TPgKSb7Qazr0ZQvIsC7oRer3AR9WPU7LE87ap0odH1wbd', '2018-11-14 06:00:00', '2019-01-06 20:38:03'),
-(9, 'admin', 'Tester', NULL, 'admin@admin.com', '$2y$10$LyGO8XcjuA/XEKVK7ouvCeL0uKPp52bgQKnyR7rrdk5CbaVR3Y9j.', '', NULL, NULL, NULL),
-(10, 'operador', 'Operator', NULL, 'op@op.com', '$2y$10$JCl/ZjUBaRbgXi7bgduDZ..CXmZTR7P0A1SReRqaB.2aSV8SqmEYK', '', NULL, NULL, NULL),
-(12, 'invitado', 'Guest', NULL, 'g@g.com', '$2y$10$6xUPxjU/BIQ7oGTqCE3ZvOcEZ1snW/Uxleh6HNHG3Cxd3s9E87rZG', '', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`) VALUES
+(1, 'admin', 'Felipe Ornelas', 'felipe.ornelas9@live.com.mx', '$2y$10$P81g2S1QztD70uCJ5.A8N.px1nkbB18jzbneKpdG7YgNMRAb.a.p.'),
+(9, 'admin', 'Tester', 'admin@admin.com', '$2y$10$LyGO8XcjuA/XEKVK7ouvCeL0uKPp52bgQKnyR7rrdk5CbaVR3Y9j.'),
+(10, 'operador', 'Operator', 'op@op.com', '$2y$10$JCl/ZjUBaRbgXi7bgduDZ..CXmZTR7P0A1SReRqaB.2aSV8SqmEYK'),
+(12, 'invitado', 'Guest', 'g@g.com', '$2y$10$6xUPxjU/BIQ7oGTqCE3ZvOcEZ1snW/Uxleh6HNHG3Cxd3s9E87rZG'),
+(13, 'invitado', 'Raul Herrera', 'rauldavid45@outlook.com', '$2y$10$bWQzwHm.C8UlxFPtCBb9I.PHGxJIIxAKd0FXDOYiy88L2iX.DWhdK'),
+(14, 'invitado', 'Test', 'uwu@uwu.com', '$2y$10$Le3BbLcUD60ialHBnsiU9ea1ajVKOjJ7p.37FpAR48oE2pK2SROqu');
 
 -- --------------------------------------------------------
 
@@ -305,24 +230,11 @@ CREATE TABLE `volatile` (
 --
 
 --
--- Indices de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `empleados`
---
-ALTER TABLE `empleados`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `entradas_producto_id_foreign` (`producto_id`),
-  ADD KEY `entradas_user_id_foreign` (`user_id`);
+  ADD KEY `entradas_producto_id_foreign` (`producto_id`);
 
 --
 -- Indices de la tabla `niveles`
@@ -340,9 +252,7 @@ ALTER TABLE `pasillos`
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `productos_categoria_id_foreign` (`categoria_id`),
-  ADD KEY `productos_user_id_foreign` (`user_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `provedores`
@@ -362,8 +272,7 @@ ALTER TABLE `racks`
 ALTER TABLE `salidas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `salidas_entrada_id_foreign` (`entrada_id`),
-  ADD KEY `salidas_producto_id_foreign` (`producto_id`),
-  ADD KEY `salidas_user_id_foreign` (`user_id`);
+  ADD KEY `salidas_producto_id_foreign` (`producto_id`);
 
 --
 -- Indices de la tabla `users`
@@ -383,22 +292,10 @@ ALTER TABLE `volatile`
 --
 
 --
--- AUTO_INCREMENT de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de la tabla `empleados`
---
-ALTER TABLE `empleados`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `niveles`
@@ -416,7 +313,7 @@ ALTER TABLE `pasillos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `provedores`
@@ -434,13 +331,13 @@ ALTER TABLE `racks`
 -- AUTO_INCREMENT de la tabla `salidas`
 --
 ALTER TABLE `salidas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `volatile`
@@ -456,23 +353,14 @@ ALTER TABLE `volatile`
 -- Filtros para la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  ADD CONSTRAINT `entradas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `entradas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD CONSTRAINT `productos_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `productos_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `entradas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `salidas`
 --
 ALTER TABLE `salidas`
   ADD CONSTRAINT `salidas_entrada_id_foreign` FOREIGN KEY (`entrada_id`) REFERENCES `entradas` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `salidas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `salidas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `salidas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

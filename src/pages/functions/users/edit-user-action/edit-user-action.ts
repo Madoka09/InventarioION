@@ -68,7 +68,7 @@ export class EditUserActionPage {
     });
 
     loader.present().then(() => {
-      this.http.post('http://192.168.137.1/IonicApp/edit_user.php', data, options)
+      this.http.post('http://192.168.1.86/IonicApp/edit_user.php', data, options)
         .map(res => res.json())
         .subscribe(res => {
 
@@ -92,7 +92,7 @@ export class EditUserActionPage {
   }
 
   getUsers() {
-    this.httpC.get("http://192.168.137.1/IonicApp/json_fetch_charge.php").subscribe(userData => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_fetch_charge.php").subscribe(userData => {
       this.charges = userData;
       console.log(userData);
     }, err => {

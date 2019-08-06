@@ -54,7 +54,7 @@ export class AddItemPage {
     //this.element.fifo = this.generatedFifo;
 
     this.element.action = "insertItem";
-    this.http.post("http://192.168.137.1/IonicApp/post_one.php", this.element).subscribe(data => {
+    this.http.post("http://192.168.1.86/IonicApp/post_one.php", this.element).subscribe(data => {
       console.log(data);
       let result = JSON.parse(data["_body"]);
       if (result.status == "success") {
@@ -71,7 +71,7 @@ export class AddItemPage {
 
   //Obtener lista de usuarios para elemento desplegable "Añadido Por:"
   getUsers() {
-    this.httpC.get("http://192.168.137.1/IonicApp/json_fetch_user.php").subscribe(userData => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_fetch_user.php").subscribe(userData => {
       this.username = userData;
       console.log(userData);
     }, err => {
@@ -81,7 +81,7 @@ export class AddItemPage {
 
   //Obtener lista de proveedores para elemento: "Proveedor"
   getProviders() {
-    this.httpC.get("http://192.168.137.1/IonicApp/json_fetch_providers.php").subscribe(providerData => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_fetch_providers.php").subscribe(providerData => {
       this.providers = providerData;
       console.log(providerData);
     }, err => {
@@ -91,7 +91,7 @@ export class AddItemPage {
 
   //Obtener todo el stock disponible al momento
   getStock(){
-    this.httpC.get("http://192.168.137.1/IonicApp/json_read.php").subscribe(stockData =>{
+    this.httpC.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(stockData =>{
       this.elements = stockData;
       console.log(stockData);
     }, err => {

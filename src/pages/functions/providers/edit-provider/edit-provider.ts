@@ -60,7 +60,7 @@ export class EditProviderPage {
       });
 
       loader.present().then(() => {
-        this.http.post('http://192.168.137.1/IonicApp/edit_provider.php', data, options)
+        this.http.post('http://192.168.1.86/IonicApp/edit_provider.php', data, options)
         .map(res => res.json())
         .subscribe(res =>{
 

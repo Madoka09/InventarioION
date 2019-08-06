@@ -34,7 +34,7 @@ if(isset($data)){
 
     $doMath = ($cantidadVieja - $cantidadNueva);
     
-    $newQuery = ("INSERT INTO salidas (`cantidad`, `producto_id`, `user_id`, `created_at`, `updated_at`) VALUES ($cantidadNueva, $id, 1, '$fecha', '$fecha')");
+    $newQuery = ("INSERT INTO salidas (`cantidad`, `producto_id`, `created_at`) VALUES ($cantidadNueva, $id, '$fecha')");
 
     if($db->query($newQuery) === TRUE){
         $response = "success";

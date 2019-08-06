@@ -10,16 +10,7 @@ if($queryEntry->num_rows > 0){
     }
 }
 
-$departDepart = array();
-$queryDepart = $db->query("SELECT productos.nombre, productos.codigo, SUM(salidas.cantidad) as Total FROM productos INNER JOIN salidas ON productos.id = salidas.producto_id GROUP BY productos.nombre");
-if($queryDepart->num_rows > 0){
-    while($rowDepart = $queryDepart->fetch_assoc()){
-        $dataDepart[] = $rowDepart;
-    }
-}
-
 echo json_encode($dataEntry);
-//echo json_encode($dataDepart);
 echo mysqli_error($db);
 
 ?>

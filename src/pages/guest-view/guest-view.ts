@@ -20,7 +20,7 @@ export class GuestViewPage {
     this.menuCtrl.enable(true, 'rightMenu');
 
     //Obtener elementos primero 
-    this.http.get("http://192.168.137.1/IonicApp/json_read.php").subscribe(data => {
+    this.http.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
       this.elements = data;
 
       this.element = [
@@ -48,7 +48,7 @@ export class GuestViewPage {
   }
 
   getData() {
-    this.http.get("http://192.168.137.1/IonicApp/json_read.php").subscribe(data => {
+    this.http.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
       this.elements = data;
       console.log(data);
     }, err => {

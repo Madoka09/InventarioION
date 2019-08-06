@@ -40,7 +40,7 @@ if(isset($data)){
     $departureNew = $request->departureNew;
 }
 
-$departure = ("INSERT INTO salidas (cantidad, producto_id, user_id, created_at, updated_at) VALUES ('$departureQty', '$id', '1', '$date', '$date')");
+$departure = ("INSERT INTO salidas (cantidad, producto_id, created_at) VALUES ('$departureQty', '$id', '$date')");
 
 if($db->query($departure) === TRUE){
     $response = "success";

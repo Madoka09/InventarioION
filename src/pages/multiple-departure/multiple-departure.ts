@@ -61,7 +61,7 @@ export class MultipleDeparturePage {
     private plt: Platform, private file: File, private fileOpener: FileOpener) {
 
     //Obtener numero de elementos para el elemento <expandable></expandable>
-    this.httpC.get("http://192.168.137.1/IonicApp/json_departure_checker.php").subscribe(data => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_departure_checker.php").subscribe(data => {
       this.elements = data;
       this.element = [];
 
@@ -90,7 +90,7 @@ export class MultipleDeparturePage {
 
   //Obtener la informacion desde la base de datos
   getData() {
-    this.httpC.get("http://192.168.137.1/IonicApp/json_departure_checker.php").subscribe(data => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_departure_checker.php").subscribe(data => {
       this.elements = data;
       console.log(data);
     }, err => {
@@ -100,7 +100,7 @@ export class MultipleDeparturePage {
 
   //Obtener datos desde DB
   getCurrentData(){
-    this.httpC.get("http://192.168.137.1/IonicApp/json_read.php").subscribe(dataStock => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(dataStock => {
       this.stockItems = dataStock;
       console.log("Current Data var: " + JSON.stringify(dataStock));
     }, err => {
@@ -188,7 +188,7 @@ export class MultipleDeparturePage {
   }
 
   truncate() {
-    this.httpC.get("http://192.168.137.1/IonicApp/json_table_clearer.php").subscribe(data => {
+    this.httpC.get("http://192.168.1.86/IonicApp/json_table_clearer.php").subscribe(data => {
       this.elements = data;
       console.log(data);
     }, err => {
@@ -229,7 +229,7 @@ export class MultipleDeparturePage {
     });
 
     loader.present().then(() => {
-      this.http.post('http://192.168.137.1/IonicApp/json_departure_decrypter.php', data, options)
+      this.http.post('http://192.168.1.86/IonicApp/json_departure_decrypter.php', data, options)
         .map(res => res.json())
         .subscribe(res => {
 

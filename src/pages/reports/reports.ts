@@ -33,6 +33,7 @@ export class ReportsPage {
   columns: any = [];
   valuesStock: any = [];
   valuesDepart: any = [];
+  barsData: any = [];
 
   departureData: any = [];
   newData: any = [];
@@ -40,6 +41,9 @@ export class ReportsPage {
   //Grafica
   barChart: any;
   chartVal: any = [];
+  chartLabels: any = [];
+  bgColor: any = [];
+  borderColor: any = [];
 
   @ViewChild('barCanvas') barCanvas;
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient,
@@ -49,28 +53,19 @@ export class ReportsPage {
   }
 
   ngOnInit(){
-    this.barChartMethod();
+    this.generateArrayBars();
   }
 
-  barChartMethod(){
-    this.getDataDeparture();
+  barChartMethod(dataU, labelU, borderC, backgC){
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['BJP', 'INC', 'AAP', 'CPI', 'CPI-M', 'NCP'],
+        labels: labelU,
         datasets: [{
-          label: '# of Votes',
-          data: this.chartVal,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)'
-          ],
+          label: 'Productos',
+          data: dataU,
+          backgroundColor: backgC,
+          borderColor: borderC,
           borderWidth: 1
         }]
       },
@@ -84,23 +79,24 @@ export class ReportsPage {
         }
       }
     });
-    console.log(this.chartVal);
   }
 
   ionViewDidLoad() {
     //Obtener informacion al cargar la vista
     this.getData();
     this.getDataDeparture();
+
   }
 
   ionViewWillEnter() {
     //Obtener informacion al regresar a la vista
     this.getData();
     this.getDataDeparture();
+
   }
 
   getData() {
-    this.http.get("http://192.168.137.1/IonicApp/json_read.php").subscribe(data => {
+    this.http.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
       this.elements = data;
     }, err => {
       console.log(err)
@@ -108,9 +104,42 @@ export class ReportsPage {
   }
 
   getDataDeparture() {
-    this.http.get("http://192.168.137.1/IonicApp/json_read_departures.php").subscribe(data2 => {
+    this.http.get("http://192.168.1.86/IonicApp/json_read_departures.php").subscribe(data2 => {
       this.departureData = data2;      
-      console.log("Chart Val: " + this.chartVal)
+      console.log(data2);
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  generateArrayBars() {
+    //Obtener elementos de salidas
+    this.http.get("http://192.168.1.86/IonicApp/json_read_departures.php").subscribe(data2 => {
+      this.departureData = data2;      
+      for (let h = 0; h <= this.departureData.length - 1; h++){
+        //Introducir total individual a array
+        this.chartVal.push(this.departureData[h].Total);
+      }
+      for (let k = 0; k <= this.departureData.length - 1; k++){
+        //Convertir valores individuales de array a enteros
+        var barsValues = parseInt(this.chartVal[k]);
+
+        //Problar array
+        this.barsData.push(barsValues);
+
+        //Iterar array de etiquetas de grafica
+        this.chartLabels.push(this.departureData[k].nombre)
+        let colorCounter = 99;
+
+        //Array con colores de fondo para grafica
+        this.bgColor.push('rgba(255,' + (colorCounter + k*1.3) + ', 132, 0.2)');
+
+        //Array con colores de borde para grafica
+        this.borderColor.push('rgba(255,'+ (colorCounter + k*1.3) + ',132,1)');
+      }
+      console.log(data2);
+      //Funcion para crear grafica
+      this.barChartMethod(this.barsData, this.chartLabels, this.borderColor, this.bgColor);
     }, err => {
       console.log(err);
     })
@@ -270,8 +299,10 @@ export class ReportsPage {
     //Crear PDF para impresion
     var docDefiniton = {
       content: [
-        { text: 'STOCK EN INVENTARIO', style: 'header', alignment: 'center' },
+        { text: 'REPORTE DE STOCK', style: 'header', alignment: 'center' },
         { text: 'Fecha: ' + new Date().toLocaleDateString('ddMMyyyy'), alignment: 'right', style: 'date' },
+
+        { lineHeight: 2, text: 'Firma de Enterado: ____________________________________________', alignment: 'left'},
         {
           columns: [
             { width: '*', text: '' },
@@ -298,6 +329,7 @@ export class ReportsPage {
       content: [
         { text: 'REPORTE DE SALIDAS', style: 'header', alignment: 'center'},
         { text: 'Fecha: ' + new Date().toLocaleDateString('ddMMyyyy'), alignment: 'right', style: 'date' },
+        { lineHeight: 2, text: 'Firma de Enterado: ____________________________________________', alignment: 'left'},
         {
           columns: [
             { width: '*', text: ''},

@@ -16,7 +16,7 @@ switch ($data['action']) {
         $pasillo = $data['pasillo'];
         $nivel = $data['nivel'];
         //realizar consulta y devolver respuesta
-        $addItemQuery = mysqli_query($db, "INSERT INTO `productos` (`nombre`,`descripcion`,`codigo`, `cantidad`, `rack`,`pasillo`,`nivel`, `categoria_id`, `user_id`) VALUES ('$nombre', '$descripcion', '$codigo', '0', '$rack', '$pasillo', '$nivel', '3', '1')");
+        $addItemQuery = mysqli_query($db, "INSERT INTO `productos` (`nombre`,`descripcion`,`codigo`, `cantidad`, `rack`,`pasillo`,`nivel`) VALUES ('$nombre', '$descripcion', '$codigo', '0', '$rack', '$pasillo', '$nivel')");
         
         //Obtener ID del producto entrante
         $checkQuery = mysqli_query($db, "SELECT id FROM productos WHERE nombre = '$nombre'");
