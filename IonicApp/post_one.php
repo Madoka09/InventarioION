@@ -41,7 +41,7 @@ switch ($data['action']) {
     case "insertProvider":
         $nombreProvedor = $data['proveedor'];
 
-        $addProviderQuery = mysqli_query($db, "INSERT INTO providers (nombreProveedor) VALUES ('$nombreProvedor')");
+        $addProviderQuery = mysqli_query($db, "INSERT INTO provedores (nombre) VALUES ('$nombreProvedor')");
         if($addProviderQuery){
             $message['status'] = "success";
         } else{
