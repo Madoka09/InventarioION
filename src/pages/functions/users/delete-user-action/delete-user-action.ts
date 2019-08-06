@@ -56,7 +56,7 @@ export class DeleteUserActionPage {
     });
 
     loader.present().then(() => {
-      this.http.post('http://192.168.1.86/IonicApp/delete_user.php', data, options)
+      this.http.post('http://172.10.20.169/IonicApp/delete_user.php', data, options)
       .map(res => res.json())
       .subscribe(res => {
 

@@ -96,7 +96,7 @@ export class ReportsPage {
   }
 
   getData() {
-    this.http.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
+    this.http.get("http://172.10.20.169/IonicApp/json_read.php").subscribe(data => {
       this.elements = data;
     }, err => {
       console.log(err)
@@ -104,7 +104,7 @@ export class ReportsPage {
   }
 
   getDataDeparture() {
-    this.http.get("http://192.168.1.86/IonicApp/json_read_departures.php").subscribe(data2 => {
+    this.http.get("http://172.10.20.169/IonicApp/json_read_departures.php").subscribe(data2 => {
       this.departureData = data2;      
       console.log(data2);
     }, err => {
@@ -114,7 +114,7 @@ export class ReportsPage {
 
   generateArrayBars() {
     //Obtener elementos de salidas
-    this.http.get("http://192.168.1.86/IonicApp/json_read_departures.php").subscribe(data2 => {
+    this.http.get("http://172.10.20.169/IonicApp/json_read_departures.php").subscribe(data2 => {
       this.departureData = data2;      
       for (let h = 0; h <= this.departureData.length - 1; h++){
         //Introducir total individual a array
@@ -310,7 +310,7 @@ export class ReportsPage {
               width: 'auto',
               table: {
                 headerRows: 1,
-                body: this.valuesStock
+                body: this.valuesStock,
               }
             },
             { width: '*', text: '' }
@@ -337,7 +337,7 @@ export class ReportsPage {
               width: 'auto',
               table: {
                 headerRows: 1,
-                body: this.valuesDepart
+                body: this.valuesDepart,
               }
             },
             { width: '*', text: ''}

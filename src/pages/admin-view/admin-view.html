@@ -13,7 +13,7 @@
         </button>
       </ion-buttons>
     </ion-navbar>
-    <ion-segment [(ngModel)]="test123">
+    <ion-segment [(ngModel)]="viewSwitch">
       <ion-segment-button value="users">
         <ion-icon name="contacts" icon-start></ion-icon>
         Administrar Usuarios
@@ -30,11 +30,11 @@
 
 <ion-content style="text-align: center">
   <!--
-    La variable para el cambio es llamada "test123", puedes cambiar el nombre a conveniencia
+    La variable para el cambio es llamada "viewSwitch", puedes cambiar el nombre a conveniencia
     el cambio se realiza con swtich segun el valor que se asigne pulsando uno de los botones 
     de la barra de navegacion,
   -->
-  <div [ngSwitch]="test123">
+  <div [ngSwitch]="viewSwitch">
     <!--
       Vista de gestión de Usuarios
     -->

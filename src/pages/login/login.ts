@@ -63,7 +63,7 @@ export class LoginPage {
                     content: "Procesando Solicitud...",
                 });
                 loader.present().then(() => {
-                    this.http.post('http://192.168.1.86/IonicApp/login.php', data, options)
+                    this.http.post('http://172.10.20.169/IonicApp/login.php', data, options)
                         .map(res => res.json())
                         .subscribe(res => {
                             console.log(res)

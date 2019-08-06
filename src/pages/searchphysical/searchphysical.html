@@ -12,7 +12,7 @@
       <ion-card-header><h1>¡Codigo Escaneado!</h1></ion-card-header>
       <ion-card>
         <ion-card-header>
-          <h1>Información del Codigo</h1>
+          <h2 style="text-align: center; font-size-adjust: inherit"><b>Información del Codigo</b></h2>
         </ion-card-header>
         <ion-card-content>
           <h2 *ngFor="let element of qrResultString">Nombre: <i ion-text>{{element.nombre | json}}</i></h2>
@@ -23,7 +23,7 @@
       <br>
       <ion-card>
         <ion-card-header>
-          <h1>Ubicación</h1>
+          <h2 style="text-align: center; font-size-adjust: inherit"><b>Ubicación</b></h2>
         </ion-card-header>
         <ion-card-content>
           <h2 *ngFor="let element of qrResultString">Pasillo: <i ion-text>{{element.pasillo | json}}</i></h2>
@@ -34,7 +34,7 @@
       <br>
       <ion-card>
         <ion-card-header>
-          <h1>Datos Adionales</h1>
+          <h2 style="text-align: center; font-size-adjust: inherit"><b>Datos Adicionales</b></h2>
         </ion-card-header>
         <ion-card-content>
           <h2 *ngFor="let element of qrResultString">Proveedor: <i ion-text>{{element.provedor | json}}</i></h2>

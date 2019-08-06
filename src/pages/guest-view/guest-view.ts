@@ -15,12 +15,14 @@ export class GuestViewPage {
 
   elements: any = [];
   element: any = [];
+  newData: any = [];
+  departureData: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, public http: HttpClient) {
     //controlador del menu lateral
     this.menuCtrl.enable(true, 'rightMenu');
 
     //Obtener elementos primero 
-    this.http.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
+    this.http.get("http://172.10.20.169/IonicApp/json_read.php").subscribe(data => {
       this.elements = data;
 
       this.element = [
@@ -40,21 +42,62 @@ export class GuestViewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GuestViewPage');
-    this.getData();
+    this.generateNewJson();
   }
 
   ionViewWillEnter() {
-    this.getData();
+    this.generateNewJson();
   }
 
+  generateNewJson() {
+    this.getData();
+    this.getDataDeparture();
+    console.log(this.elements.length);
+
+    for (let i = 0; i <= this.elements.length - 1; i++) {
+        if (this.elements[i].codigo == this.departureData[i].codigo) {
+            var entradas = parseInt(this.elements[i].cantidad);
+            var salidas = parseInt(this.departureData[i].Total);
+
+            var nuevo = (entradas - salidas);
+
+            this.newData.push({
+                cantidad: nuevo,
+                descripcion: this.elements[i].descripcion,
+                codigo: this.elements[i].codigo,
+                creado: this.elements[i].created_at,
+                id: this.elements[i].id,
+                nivel: this.elements[i].nivel,
+                pasillo: this.elements[i].pasillo,
+                rack: this.elements[i].rack,
+                proveedor: this.elements[i].provedor,
+                nombre: this.elements[i].nombre,
+            })
+
+        } else {
+            console.log("Error generando JSON dinamico");
+        }
+    }
+}
+
   getData() {
-    this.http.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
+    this.http.get("http://172.10.20.169/IonicApp/json_read.php").subscribe(data => {
       this.elements = data;
       console.log(data);
     }, err => {
       console.log(err);
     });
   }
+
+  //Obtener Datos
+  getDataDeparture() {
+    this.http.get("http://172.10.20.169/IonicApp/json_read_departures.php").subscribe(data2 => {
+        this.departureData = data2;
+        console.log(data2);
+    }, err => {
+        console.log(err);
+    })
+}
 
   expandItem(element) {
 

@@ -43,11 +43,11 @@ export class HomePage {
         public toast: ToastController, public events: Events, public navParams: NavParams,
         public loading: LoadingController, public alertCtrl: AlertController) {
         //Obtener numero de elementos para el elemento <expandable></expandable>
-        this.httpC.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
+        this.httpC.get("http://172.10.20.169/IonicApp/json_read.php").subscribe(data => {
             this.elements = data;
             this.element = [];
             console.log("first Request");
-            this.httpC.get("http://192.168.1.86/IonicApp/json_read_departures.php").subscribe(data2 => {
+            this.httpC.get("http://172.10.20.169/IonicApp/json_read_departures.php").subscribe(data2 => {
                 this.departureData = data2;
                 console.log("second Request");
                 console.log(data2);
@@ -93,7 +93,7 @@ export class HomePage {
         //Obtener informacion al cargar la vista
         //this.getData()
         //this.generateNewJson();
-    } 
+    }
 
     ionViewWillEnter() {
         //Obtener informacion al regresar a la vista
@@ -103,7 +103,7 @@ export class HomePage {
 
     //Obtener la informacion de los productos desde la base de datos
     getData() {
-        this.httpC.get("http://192.168.1.86/IonicApp/json_read.php").subscribe(data => {
+        this.httpC.get("http://172.10.20.169/IonicApp/json_read.php").subscribe(data => {
             this.elements = data;
             console.log(data);
         }, err => {
@@ -113,7 +113,7 @@ export class HomePage {
 
     //Obtener Datos
     getDataDeparture() {
-        this.httpC.get("http://192.168.1.86/IonicApp/json_read_departures.php").subscribe(data2 => {
+        this.httpC.get("http://172.10.20.169/IonicApp/json_read_departures.php").subscribe(data2 => {
             this.departureData = data2;
             console.log(data2);
         }, err => {
@@ -148,7 +148,7 @@ export class HomePage {
                 })
 
             } else {
-                   console.log("Error generando JSON dinamico");
+                console.log("Error generando JSON dinamico");
             }
         }
     }
@@ -218,7 +218,7 @@ export class HomePage {
             content: 'Procesando Solicitud...'
         });
         loader.present().then(() => {
-            this.http.post('http://192.168.1.86/IonicApp/json_departure_reciever.php', data, options)
+            this.http.post('http://172.10.20.169/IonicApp/json_departure_reciever.php', data, options)
                 .map(res => res.json())
                 .subscribe(res => {
                     if (res == "success") {
@@ -276,9 +276,9 @@ export class HomePage {
 
     }
 
-    fecha(){
+    fecha() {
         this.todayDate = new Date();
-        console.log((this.todayDate.getFullYear() + '-' + ((this.todayDate.getMonth() + 1)) + '-' + this.todayDate.getDate() + ' ' +this.todayDate.getHours() + ':' + this.todayDate.getMinutes()+ ':' + this.todayDate.getSeconds()));
+        console.log((this.todayDate.getFullYear() + '-' + ((this.todayDate.getMonth() + 1)) + '-' + this.todayDate.getDate() + ' ' + this.todayDate.getHours() + ':' + this.todayDate.getMinutes() + ':' + this.todayDate.getSeconds()));
     }
 
     //Mostrar notificaciones del tipo toast

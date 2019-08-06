@@ -50,7 +50,7 @@ export class SearchphysicalPage {
 
     loader.present().then(() => {
       this.qrResultString.length = 0;
-      this.http.post('http://192.168.1.86/IonicApp/qrcode_check.php', data, options)
+      this.http.post('http://172.10.20.169/IonicApp/qrcode_check.php', data, options)
       .map(res => res.json())
       .subscribe(res => {
         this.qrResultString.push(res);
@@ -70,7 +70,7 @@ export class SearchphysicalPage {
   }
 
   getData(){
-    this.httpC.get("http://192.168.1.86/IonicApp/qrcode_check.php").subscribe(dataQ => {
+    this.httpC.get("http://172.10.20.169/IonicApp/qrcode_check.php").subscribe(dataQ => {
       this.elements = dataQ;
       console.log(dataQ);
     }, err => {

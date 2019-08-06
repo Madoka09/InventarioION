@@ -18,13 +18,13 @@ import { MultipleDeparturePage } from '../multiple-departure/multiple-departure'
 export class AdminPage {
 
   //Variable para establecer pagina de inicio de la vista de administrador
-  test123: string;
+  viewSwitch: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
     //Controlador de menú, sirve para mostrar el menú deslizante del lado derecho, para cerrar sesión
     this.menuCtrl.enable(true, 'rightMenu');
 
     //Users por defecto
-    this.test123 = "users";
+    this.viewSwitch = "users";
   }
 
   ionViewDidLoad() {

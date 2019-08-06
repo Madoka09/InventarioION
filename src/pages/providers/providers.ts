@@ -17,7 +17,7 @@ export class ProvidersPage {
   constructor(public navCtrl: NavController, public http: HttpClient, public toast: ToastController) {
 
     //Obtener elementos primero 
-    this.http.get("http://192.168.1.86/IonicApp/json_fetch_providers.php").subscribe(data => {
+    this.http.get("http://172.10.20.169/IonicApp/json_fetch_providers.php").subscribe(data => {
       this.elements = data;
 
       this.element = [
@@ -38,7 +38,7 @@ export class ProvidersPage {
   }
 
   getProviders() {
-    this.http.get("http://192.168.1.86/IonicApp/json_fetch_providers.php").subscribe(data => {
+    this.http.get("http://172.10.20.169/IonicApp/json_fetch_providers.php").subscribe(data => {
       this.elements = data;
       console.log(data);
     }, err => {

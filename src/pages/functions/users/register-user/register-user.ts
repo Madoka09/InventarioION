@@ -66,7 +66,7 @@ export class RegisterPage {
             content: 'Procesando Solicitud...'
           });
           loader.present().then(() => {
-            this.http.post('http://192.168.1.86/IonicApp/register.php', data, options)
+            this.http.post('http://172.10.20.169/IonicApp/register.php', data, options)
               .map(res => res.json())
               .subscribe(res => {
                 loader.dismiss()

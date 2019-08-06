@@ -27,10 +27,8 @@ export class ProductEntryPage {
   mes: any;
   year: any;
 
-  generatedFifo: any;
 
   @ViewChild("nuevaCantidad") nuevaCantidad;
-  @ViewChild("nuevoFIFO") nuevoFIFO;
   @ViewChild("proveedor") proveedor;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private http: Http, public alertCtrl: AlertController,
@@ -68,7 +66,7 @@ export class ProductEntryPage {
   }
 
   getProviders(){
-    this.httpC.get("http://192.168.1.86/IonicApp/json_fetch_providers.php").subscribe(data =>{
+    this.httpC.get("http://172.10.20.169/IonicApp/json_fetch_providers.php").subscribe(data =>{
       this.providerData = data;
       console.log(data)
     }, err => {
@@ -119,7 +117,7 @@ export class ProductEntryPage {
       });
 
       loader.present().then(() => {
-        this.http.post('http://192.168.1.86/IonicApp/json_entry_stock.php', data, options)
+        this.http.post('http://172.10.20.169/IonicApp/json_entry_stock.php', data, options)
           .map(res => res.json())
           .subscribe(res => {
 
